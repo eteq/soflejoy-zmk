@@ -5,9 +5,9 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <layouts/eteq/soflejoy.dtsi>
+#include <layouts/josefadamcik/sofle.dtsi>
 
-&eteq_soflejoy_layout {
+&josefadamcik_sofle_layout {
     transform = <&default_transform>;
 };
 
