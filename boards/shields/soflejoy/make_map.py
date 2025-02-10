@@ -12,7 +12,7 @@ full_keymap_file_template = """
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
-#include <dt-bindings/zmk/ext_power.h> 
+#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 
 #define ZMK_MOUSE_DEFAULT_MOVE_VAL 8000//800
