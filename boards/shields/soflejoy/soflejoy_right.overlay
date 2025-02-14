@@ -6,6 +6,8 @@
 
 #include "soflejoy.dtsi"
 
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
 &default_transform {
     col-offset = <6>;
 };
@@ -21,6 +23,27 @@
         ;
 };
 
-&right_encoder {
-    status = "okay";
+/ { joystick: analog_axis {
+        compatible = "analog-axis";
+        poll-period-ms = <15>;
+        axis-x {
+                io-channels = <&adc 7>;
+                in-deadzone = <100>; // need to confirm this
+                in-min = <0>;
+                in-max = <4000>;
+                zephyr,axis = <INPUT_ABS_X>;
+        };
+        axis-y {
+                io-channels = <&adc 5>;
+                in-deadzone = <100>; // need to confirm this
+                in-min = <0>;
+                in-max = <4000>;
+                zephyr,axis = <INPUT_ABS_Y>;
+                invert-output;
+        };
+    };
+};
+
+&joystick_split {
+    device = <&joystick>;
 };

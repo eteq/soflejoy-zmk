@@ -16,6 +16,9 @@ if SHIELD_SOFLEJOY_LEFT || SHIELD_SOFLEJOY_RIGHT
 config ZMK_SPLIT
     default y
 
+config ZMK_POINTING
+    default y
+
 if ZMK_DISPLAY
 
 config I2C
