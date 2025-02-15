@@ -1,0 +1,6 @@
+Local build in devcontainer for zmk as:
+
+cd app
+west build -d build/left -b nice_nano_v2 -- -DSHIELD=soflejoy_left -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config && west build -d build/right -b nice_nano_v2 -- -DSHIELD=soflejoy_right -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config
+
+assuming the zmk-config volume is set up to point here
