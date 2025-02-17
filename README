@@ -1,6 +1,22 @@
+# Soflejoy
+
+This is a mod on a Sofle Choc keyboard that replaces the right-side encoder with a joystick.  The PCB layout for the adapter board is a KiCad PCB in ``joystick_encoder_adapter``. The joystick is a FJ06K-S joystick and you can just solder that into the adapter board and then use short lengths of wire to connect the adapter to the encoder footprint. Note, though, there is not a power pin available on the existing Sofle layout, so you will need to do a little bodge wire connecting the 3V pad on the adapter to the nearby 3V pad for the power jack that connects the two halves of the keyboard.
+
+## Building
+
 Local build in devcontainer for zmk as:
 
 cd app
 west build -d build/left -b nice_nano_v2 -- -DSHIELD=soflejoy_left -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config && west build -d build/right -b nice_nano_v2 -- -DSHIELD=soflejoy_right -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config
 
 assuming the zmk-config volume is set up to point here
+
+## Joystick calibration
+
+For in-min/max/deadzone values I set are probably dependent on the specific joystick. To determine them I compiled the right board with ``-S zmk-usb-logging``, set ``config INPUT_LOG_LEVEL=4`` in the defconfig, and then fiddled with the joystick while saving out the ttyACM0 output.  I then parsed the raw values with some manual python to get the resulting values. For my particular joystick I saw:
+
+* both x and y would max out at ~4000 if you just scrolled them, but if you wiped them, went up to ~4050
+* x and y both mined out within 10 or so of 0, although x consistently at -3, and y either 10 or -3 depending on wiping
+* x at center seemed to be 2010 - 2030
+* y at center seemed to be 1780 - 2100 - i.e. didn't bounce back to the same spot
+* std at stability was ~4

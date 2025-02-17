@@ -26,22 +26,56 @@
 / { joystick: analog_axis {
         compatible = "analog-axis";
         poll-period-ms = <15>;
+        power-domain = <&{/EXT_POWER}>;
         axis-x {
                 io-channels = <&adc 7>;
-                in-deadzone = <100>; // need to confirm this
+                in-deadzone = <300>;
                 in-min = <0>;
                 in-max = <4000>;
-                zephyr,axis = <INPUT_ABS_X>;
+                zephyr,axis = <INPUT_REL_X>;
+                out-min = <(-127)>;
+                out-max = <127>;
         };
         axis-y {
                 io-channels = <&adc 5>;
-                in-deadzone = <100>; // need to confirm this
+                in-deadzone = <300>;
                 in-min = <0>;
                 in-max = <4000>;
-                zephyr,axis = <INPUT_ABS_Y>;
-                invert-output;
+                zephyr,axis = <INPUT_REL_Y>;
+                out-min = <(-127)>;
+                out-max = <127>;
         };
     };
+
+    chosen {
+        /delete-property/ zmk,battery;
+    }; // fix for axis hanging since there's nothing there anyway - for a real fix see https://github.com/zephyrproject-rtos/zephyr/pull/74502
+};
+
+
+// configure the ADC for the joystick
+
+&adc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	channel@7 { // x -axis
+		reg = <7>;
+		zephyr,gain = "ADC_GAIN_1_4";
+		zephyr,reference = "ADC_REF_VDD_1_4";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN7>;
+		zephyr,resolution = <12>;
+		zephyr,oversampling = <0>;
+	};
+	channel@5 { // y-axis
+		reg = <5>;
+		zephyr,gain = "ADC_GAIN_1_4";
+		zephyr,reference = "ADC_REF_VDD_1_4";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN5>;
+		zephyr,resolution = <12>;
+		zephyr,oversampling = <0>;
+	};
 };
 
 &joystick_split {

@@ -1,6 +1,10 @@
 # Copyright (c) 2020 Ryan Cross
 # SPDX-License-Identifier: MIT
 
+
+config INPUT_LOG_LEVEL
+    default 4
+
 if SHIELD_SOFLEJOY_LEFT
 
 config ZMK_KEYBOARD_NAME
