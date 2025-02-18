@@ -6,6 +6,8 @@
 
 #include "soflejoy.dtsi"
 
+#include <dt-bindings/zmk/input_transform.h>
+
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &default_transform {
@@ -27,21 +29,23 @@
         compatible = "analog-axis";
         poll-period-ms = <15>;
         power-domain = <&{/EXT_POWER}>;
-        axis-x {
-                io-channels = <&adc 7>;
-                in-deadzone = <300>;
-                in-min = <0>;
-                in-max = <4000>;
-                zephyr,axis = <INPUT_REL_X>;
-                out-min = <(-127)>;
-                out-max = <127>;
-        };
         axis-y {
                 io-channels = <&adc 5>;
                 in-deadzone = <300>;
                 in-min = <0>;
                 in-max = <4000>;
                 zephyr,axis = <INPUT_REL_Y>;
+                relative-axis;
+                out-min = <(-127)>;
+                out-max = <127>;
+        };
+        axis-x {
+                io-channels = <&adc 7>;
+                in-deadzone = <300>;
+                in-min = <0>;
+                in-max = <4000>;
+                zephyr,axis = <INPUT_REL_X>;
+                relative-axis;
                 out-min = <(-127)>;
                 out-max = <127>;
         };

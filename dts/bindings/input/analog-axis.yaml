@@ -93,3 +93,8 @@ child-binding:
       type: boolean
       description: |
         If set, invert the output value.
+
+    relative-axis:
+      type: boolean
+      description: |
+        If set, use an relative event type instead of absolute.

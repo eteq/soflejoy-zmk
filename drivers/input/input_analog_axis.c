@@ -27,6 +27,7 @@ struct analog_axis_channel_config {
 	uint16_t axis;
 	bool invert_input;
 	bool invert_output;
+	bool relative_axis;
 };
 
 struct analog_axis_channel_data {
@@ -210,8 +211,14 @@ static void analog_axis_loop(const struct device *dev)
 			out = axis_cfg->out_max - out;
 		}
 
-		if (axis_data->last_out != out) {
-			input_report_abs(dev, axis_cfg->axis, out, true, K_FOREVER);
+		if (axis_cfg->relative_axis) {
+			if (axis_data->last_out != 0 || out != 0) {  // not sure if the last out is needed
+				input_report_rel(dev, axis_cfg->axis, out, true, K_FOREVER);
+			}
+		} else {
+			if (axis_data->last_out != out) {
+				input_report_abs(dev, axis_cfg->axis, out, true, K_FOREVER);
+			}
 		}
 		axis_data->last_out = out;
 	}
@@ -334,6 +341,7 @@ static int analog_axis_pm_action(const struct device *dev,
 		.axis = DT_PROP(node_id, zephyr_axis), \
 		.invert_input = DT_PROP(node_id, invert_input), \
 		.invert_output = DT_PROP(node_id, invert_output), \
+		.relative_axis = DT_PROP(node_id, relative_axis), \
 	}
 
 #define ANALOG_AXIS_CHANNEL_CAL_DEF(node_id) \
