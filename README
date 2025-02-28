@@ -4,12 +4,16 @@ This is a mod on a Sofle Choc keyboard that replaces the right-side encoder with
 
 ## Building
 
-Local build in devcontainer for zmk as:
+In zmk dir, start devcontainer as:
 
-cd app
-west build -d build/left -b nice_nano_v2 -- -DSHIELD=soflejoy_left -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config && west build -d build/right -b nice_nano_v2 -- -DSHIELD=soflejoy_right -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config
+% devcontainer up --workspace-folder ~/src/zmk && devcontainer exec --workspace-folder ~/src/zmk bash
 
-assuming the zmk-config volume is set up to point here
+Then in the devcontainer:
+
+% cd app
+% west build -d build/left -b nice_nano_v2 -- -DSHIELD=soflejoy_left -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config && west build -d build/right -b nice_nano_v2 -- -DSHIELD=soflejoy_right -DZMK_CONFIG=/workspaces/zmk-config -DZMK_EXTRA_MODULES=/workspaces/zmk-config
+
+But that only works if the zmk-config volume is set up to point to this directory.
 
 ## Joystick calibration
 
@@ -20,3 +24,7 @@ For in-min/max/deadzone values I set are probably dependent on the specific joys
 * x at center seemed to be 2010 - 2030
 * y at center seemed to be 1780 - 2100 - i.e. didn't bounce back to the same spot
 * std at stability was ~4
+
+## Modifying the keymap
+
+The keymap is configured via the ``boards/shields/soflejoy/sofle_keymaps.xlsx file``.  Once updated, run ``python make_map.py -f sofle_keymaps.xlsx > soflejoy.keymap`` to update the keymap.

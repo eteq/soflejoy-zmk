@@ -7,7 +7,7 @@
 #include "soflejoy.dtsi"
 
 #include <dt-bindings/zmk/input_transform.h>
-
+#include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &default_transform {
@@ -84,4 +84,6 @@
 
 &joystick_split {
     device = <&joystick>;
+
+    input-processors = <&zip_xy_scaler 1 3>;
 };
