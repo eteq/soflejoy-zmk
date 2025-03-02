@@ -9,6 +9,12 @@ config ZMK_KEYBOARD_NAME
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
+config EC11
+    default y
+
+#config EC11_TRIGGER_GLOBAL_THREAD
+#    default y
+
 endif
 
 if SHIELD_SOFLEJOY_LEFT || SHIELD_SOFLEJOY_RIGHT
@@ -19,6 +25,9 @@ config ZMK_SPLIT
 config ZMK_POINTING
     default y
 
+config ZMK_DISPLAY
+    default y
+
 if ZMK_DISPLAY
 
 config I2C
@@ -26,6 +35,10 @@ config I2C
 
 config SSD1306
     default y
+
+config ZMK_WIDGET_BATTERY_STATUS_SHOW_PERCENTAGE
+    default y
+
 
 endif # ZMK_DISPLAY
 
@@ -46,10 +59,48 @@ endchoice
 
 endif # LVGL
 
+config ZMK_RGB_UNDERGLOW
+    default y
+
 if ZMK_RGB_UNDERGLOW
 
 config WS2812_STRIP
     default y
+
+
+config ZMK_RGB_UNDERGLOW_EFF_START
+    default 1
+config ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE
+    default y
+config ZMK_RGB_UNDERGLOW_ON_START
+    default n
+config ZMK_RGB_UNDERGLOW_AUTO_OFF_USB
+    default n
+config ZMK_RGB_UNDERGLOW_BRT_START
+    default 50
+
 endif
+
+config ZMK_RGB_UNDERGLOW_EXT_POWER
+    default n
+
+
+config ZMK_KSCAN_DEBOUNCE_PRESS_MS
+    default 4
+config ZMK_KSCAN_DEBOUNCE_RELEASE_MS
+    default 4
+
+config ZMK_POINTING
+    default y
+config ZMK_POINTING_SMOOTH_SCROLLING
+    default n
+
+config ZMK_SLEEP
+    default y
+config ZMK_IDLE_TIMEOUT
+    default 15000
+
+config ZMK_PM_SOFT_OFF
+    default y
 
 endif
