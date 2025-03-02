@@ -57,9 +57,10 @@
         };
     };
 
-    chosen {
-        /delete-property/ zmk,battery;
-    }; // fix for axis hanging since there's nothing there anyway - for a real fix see https://github.com/zephyrproject-rtos/zephyr/pull/74502
+    // this is a fix for axis hanging since there's nothing there anyway - for the real fix https://github.com/zephyrproject-rtos/zephyr/pull/74502, which has to be applied as a zephyr patch
+    //chosen {
+    //    /delete-property/ zmk,battery;
+    //}; 
 };
 
 
