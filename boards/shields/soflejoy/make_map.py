@@ -19,6 +19,7 @@ full_keymap_file_template = """
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100 // the default is 10 which is way too slow for a fast response time
 
 #include <dt-bindings/zmk/pointing.h>
+#include <input/processors.dtsi>
 
 #define BASE 0
 #define LOWER 1
@@ -35,6 +36,11 @@ full_keymap_file_template = """
 &soft_off {
     hold-time-ms = <1500>; // Only turn off it the key is held for these milliseconds or longer.
     /delete-property/ split-peripheral-off-on-press;
+};
+
+
+&joystick_listener {
+    input-processors = <&zip_temp_layer LOWER 1000>;
 };
 
 / {
@@ -131,8 +137,8 @@ map_template = """
 """[1:-1]
 
 sensor_bindings = { None: 'sensor-bindings = <&mouse_scroll_up_down>;',
-                   'lower': 'sensor-bindings = <&vol_encoder>;',
-                    'raise': 'sensor-bindings = <&mouse_scroll_left_right>;',
+                   'lower': 'sensor-bindings = <&mouse_scroll_left_right>;',
+                    'raise': 'sensor-bindings = <&vol_encoder>;',
                     'adjust': 'sensor-bindings = <&rgb_encoder>;'}
 
 def make_map_str(infn, template=map_template):

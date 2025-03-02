@@ -31,9 +31,12 @@
         power-domain = <&{/EXT_POWER}>;
         axis-y {
                 io-channels = <&adc 5>;
-                in-deadzone = <300>;
-                in-min = <0>;
-                in-max = <4000>;
+                //in-deadzone = <300>;
+                //in-min = <0>;
+                //in-max = <4000>;
+                in-deadzone = <170>;
+                in-min = <332>;
+                in-max = <3600>;
                 zephyr,axis = <INPUT_REL_Y>;
                 relative-axis;
                 out-min = <(-127)>;
@@ -41,9 +44,12 @@
         };
         axis-x {
                 io-channels = <&adc 7>;
-                in-deadzone = <300>;
-                in-min = <0>;
-                in-max = <4000>;
+                //in-deadzone = <300>;
+                //in-min = <0>;
+                //in-max = <4000>;
+                in-deadzone = <40>;
+                in-min = <246>;
+                in-max = <3820>;
                 zephyr,axis = <INPUT_REL_X>;
                 relative-axis;
                 out-min = <(-127)>;
@@ -85,5 +91,5 @@
 &joystick_split {
     device = <&joystick>;
 
-    input-processors = <&zip_xy_scaler 1 3>;
+    input-processors = <&zip_xy_scaler 1 8>;
 };
